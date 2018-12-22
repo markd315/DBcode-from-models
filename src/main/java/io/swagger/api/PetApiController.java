@@ -2,6 +2,7 @@ package io.swagger.api;
 
 import io.swagger.model.ModelApiResponse;
 import io.swagger.model.Pet;
+import io.swagger.service.ResourceService;
 import io.swagger.service.ResourceServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;

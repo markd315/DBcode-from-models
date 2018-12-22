@@ -5,8 +5,9 @@ import io.swagger.model.Pet;
 import java.util.Collection;
 
 public interface ResourceService {
-    Pet findPetById(int id);
-    Collection<Pet> findAllPets();
     void savePet(Pet pet);
+    Pet findPetById(int id);
+    //Update same as save
     void deletePet(Pet pet);
+    Collection<Pet> findAllPets();
 }

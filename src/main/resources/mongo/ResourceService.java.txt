@@ -1,0 +1,15 @@
+package io.swagger.service;
+
+import io.swagger.model.{{Class}};
+
+import java.util.Collection;
+
+public interface ResourceService {
+
+    //interfaceMethodLoop
+    void save{{Class}}({{Class}} {{class}});
+    {{Class}} find{{Class}}ById(int Id);
+    void delete{{Class}}({{Class}} {{class}});
+    Collection<{{Class}}> findAll{{Class}}s();
+    //interfaceMethodLoop
+}
