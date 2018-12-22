@@ -1,6 +1,6 @@
 package markd315.dbGen;
 
-public class Const {
+public class MongoConst {
     public static String getClassRepository() {
         return classRepository;
     }
@@ -11,6 +11,10 @@ public class Const {
 
     public static String getResourceServiceImpl() {
         return resourceServiceImpl;
+    }
+
+    public static String getModelImportLoop() {
+        return modelImportLoop;
     }
 
     public static String getInterfaceMethodLoop() {
@@ -80,6 +84,9 @@ public class Const {
             "public class ResourceServiceImpl implements ResourceService {\n" +
             "    {{implMethodLoop}}\n" +
             "}\n";
+
+    private static String modelImportLoop = "import io.swagger.model.{{Class}};\n" +
+            "import io.swagger.repository.{{Class}}Repository;\n";
     private static String interfaceMethodLoop = "void save{{Class}}({{Class}} {{class}});\n" +
             "    {{Class}} find{{Class}}ById(int Id);\n" +
             "    void delete{{Class}}({{Class}} {{class}});\n" +
