@@ -152,6 +152,39 @@ public class MongoConst {
             "                    </execution>\n" +
             "                </executions>\n" +
             "            </plugin>\n" +
+            "            <plugin>\n" +
+            "                <groupId>org.apache.maven.plugins</groupId>\n" +
+            "                <artifactId>maven-jar-plugin</artifactId>\n" +
+            "                <version>2.4</version>\n" +
+            "                <configuration>\n" +
+            "                    <archive>\n" +
+            "                        <manifest>\n" +
+            "                            <addClasspath>true</addClasspath>\n" +
+            "                            <mainClass>markd315.dbGen.Main</mainClass>\n" +
+            "                            <classpathPrefix>lib/</classpathPrefix>\n" +
+            "                        </manifest>\n" +
+            "                    </archive>\n" +
+            "                </configuration>\n" +
+            "            </plugin>\n" +
+            "            <plugin>\n" +
+            "                <groupId>org.apache.maven.plugins</groupId>\n" +
+            "                <artifactId>maven-dependency-plugin</artifactId>\n" +
+            "                <version>2.8</version>\n" +
+            "                <executions>\n" +
+            "                    <execution>\n" +
+            "                        <id>copy-dependencies</id>\n" +
+            "                        <phase>package</phase>\n" +
+            "                        <goals>\n" +
+            "                            <goal>copy-dependencies</goal>\n" +
+            "                        </goals>\n" +
+            "                        <configuration>\n" +
+            "                            <outputDirectory>\n" +
+            "                                ${project.build.directory}/lib/\n" +
+            "                            </outputDirectory>\n" +
+            "                        </configuration>\n" +
+            "                    </execution>\n" +
+            "                </executions>\n" +
+            "            </plugin>\n"+
             "        </plugins>\n" +
             "    </build>\n" +
             "    <dependencies>\n" +
