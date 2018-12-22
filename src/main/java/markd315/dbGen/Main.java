@@ -1,5 +1,7 @@
 package markd315.dbGen;
 
+import com.mongodb.Mongo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,25 +16,34 @@ public class Main {
         //traverse folder: src/main/java/io/swagger/model and read class names into
         Set<String> classNames = new HashSet<>();
         classNames.add("Pet");
-        //TODO
+        //TODO load model names for real
 
-        //read, replace, and write the following files:
-        //mongo/pom.xml -> pom.xml
+        //TODO something similar with the pom.xml
+        String implClass = MongoConst.getResourceServiceImpl();
+        String serviceInterface = MongoConst.getResourceService();
+
         for(String classname : classNames){
             //Write a Repository file for every single class.
             String fileContents = MongoConst.getClassRepository().replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
             //System.out.println(fileContents);
             fileWrite(fileContents, "src/main/java/io/swagger/repository/"+classname+"Repository.java");
 
-            //Collect all three of the service code blocks for this Model class.
-            String implMethodClass = MongoConst.getImplMethodLoop().replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
-            String interfaceMethodClass = MongoConst.getInterfaceMethodLoop().replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
-            String modelImportClass = MongoConst.getModelImportLoop().replaceAll("\\{\\{Class\\}\\}", classname);
-
             //Inject the service code blocks without destroying the loop label
-        }
-        //Destruct the loop labels in the service classes once all model code blocks are loaded.
+            implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}", MongoConst.getImplMethodLoop() + "\\{\\{implMethodLoop\\}\\}");
+            implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{modelImportLoop\\}\\}");
+            serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}", MongoConst.getInterfaceMethodLoop() + "\\{\\{interfaceMethodLoop\\}\\}");
 
+            //Replace class names for these two files as well.
+            implClass = implClass.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
+            serviceInterface = serviceInterface.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
+
+        }
+        implClass.replaceAll("\\{\\{implMethodLoop\\}\\}\n", "");
+        implClass.replaceAll("\\{\\{modelImportLoop\\}\\}\n", "");
+        serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n", "");
+        //Destruct the loop labels in the service classes once all model code blocks are loaded.
+        System.out.println(implClass + "\n\n");
+        System.out.println(serviceInterface);
         //Write a single Service Interface and Service Impl with parts from every model class.
     }
 
