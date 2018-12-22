@@ -1,0 +1,45 @@
+package io.swagger.service;
+
+//modelImportLoop
+import io.swagger.model.{{Class}};
+import io.swagger.repository.{{Class}}Repository;
+//modelImportLoop
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+
+@Service
+public class ResourceServiceImpl implements ResourceService {
+    //implMethodLoop
+    private {{Class}}Repository {{class}}Repository;
+
+    @Autowired
+    public ResourceServiceImpl(
+                {{Class}}Repository {{class}}Repository) {
+        this.{{class}}Repository = {{class}}Repository;
+    }
+
+    @Override
+    public {{Class}} find{{Class}}ById(int id) throws DataAccessException {
+            {{Class}} {{class}}= {{class}}Repository.findById(id);
+        return {{class}};
+    }
+
+    @Override
+    public Collection<{{Class}}> findAll{{Class}}s() throws DataAccessException {
+        return {{class}}Repository.findAll();
+    }
+
+    @Override
+    public void save{{Class}}({{Class}} {{class}}) throws DataAccessException {
+                                {{class}}Repository.save({{class}});
+    }
+
+    @Override
+    public void delete{{Class}}({{Class}} {{class}}) throws DataAccessException {
+                                    {{class}}Repository.delete({{class}});
+    }
+    //implMethodLoop
+}

@@ -2,8 +2,6 @@ package io.swagger.api;
 
 import io.swagger.model.ModelApiResponse;
 import io.swagger.model.Pet;
-import io.swagger.service.ResourceService;
-import io.swagger.service.ResourceServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -37,8 +35,8 @@ public class PetApiController implements PetApi {
 
     private final HttpServletRequest request;
 
-    @Autowired
-    private ResourceService resourceService;
+    //@Autowired
+    //private ResourceService resourceService;
 
     @org.springframework.beans.factory.annotation.Autowired
     public PetApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -47,8 +45,8 @@ public class PetApiController implements PetApi {
     }
 
     public ResponseEntity<Void> addPet(@ApiParam(value = "Pet object that needs to be added to the store" ,required=true )  @Valid @RequestBody Pet body) {
-        String accept = request.getHeader("Accept");
-        resourceService.savePet(body);
+        //String accept = request.getHeader("Accept");
+        //resourceService.savePet(body);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
@@ -58,9 +56,10 @@ public class PetApiController implements PetApi {
     }
 
     public ResponseEntity<List<Pet>> findPetsByStatus(@NotNull @ApiParam(value = "Status values that need to be considered for filter", required = true, allowableValues = "available, pending, sold") @Valid @RequestParam(value = "status", required = true) List<String> status) {
-        List list = new ArrayList(resourceService.findAllPets());
-        Collections.sort(list);
-        return new ResponseEntity<List<Pet>>(list, HttpStatus.OK);
+        //List list = new ArrayList(resourceService.findAllPets());
+        //Collections.sort(list);
+        //TODO fix null back to 200 OK
+        return new ResponseEntity<List<Pet>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<List<Pet>> findPetsByTags(@NotNull @ApiParam(value = "Tags to filter by", required = true) @Valid @RequestParam(value = "tags", required = true) List<String> tags) {

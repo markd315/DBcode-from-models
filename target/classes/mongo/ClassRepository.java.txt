@@ -1,0 +1,17 @@
+package io.swagger.repository;
+
+import io.swagger.model.{{Class}};
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
+
+public interface {{Class}}Repository extends MongoRepository<{{Class}}, Integer> {
+    List<{{Class}}> findAll() throws DataAccessException;
+
+    {{Class}} findById(int id) throws DataAccessException;
+
+    {{Class}} save({{Class}} {{class}}) throws DataAccessException;
+
+    void delete({{Class}} {{class}}) throws DataAccessException;
+}

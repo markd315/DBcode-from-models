@@ -1,27 +1,27 @@
 package markd315.dbGen;
 
 public class Const {
-    public String getClassRepository() {
+    public static String getClassRepository() {
         return classRepository;
     }
 
-    public String getImplMethodLoop() {
+    public static String getImplMethodLoop() {
         return implMethodLoop;
     }
 
-    public String getResourceServiceImpl() {
+    public static String getResourceServiceImpl() {
         return resourceServiceImpl;
     }
 
-    public String getInterfaceMethodLoop() {
+    public static String getInterfaceMethodLoop() {
         return interfaceMethodLoop;
     }
 
-    public String getResourceService() {
+    public static String getResourceService() {
         return resourceService;
     }
 
-    private String classRepository = "package io.swagger.repository;\n" +
+    private static String classRepository = "package io.swagger.repository;\n" +
             "\n" +
             "import io.swagger.model.{{Class}};\n" +
             "import org.springframework.dao.DataAccessException;\n" +
@@ -39,7 +39,7 @@ public class Const {
             "    void delete({{Class}} {{class}}) throws DataAccessException;\n" +
             "}\n";
 
-    private String implMethodLoop = "private {{Class}}Repository {{class}}Repository;\n" +
+    private static String implMethodLoop = "private {{Class}}Repository {{class}}Repository;\n" +
             "\n" +
             "    @Autowired\n" +
             "    public ResourceServiceImpl(\n" +
@@ -67,7 +67,7 @@ public class Const {
             "    public void delete{{Class}}({{Class}} {{class}}) throws DataAccessException {\n" +
             "                                    {{class}}Repository.delete({{class}});\n" +
             "    }";
-    private String resourceServiceImpl = "package io.swagger.service;\n" +
+    private static String resourceServiceImpl = "package io.swagger.service;\n" +
             "\n" +
             "{{modelImportLoop}}\n" +
             "import org.springframework.beans.factory.annotation.Autowired;\n" +
@@ -80,11 +80,11 @@ public class Const {
             "public class ResourceServiceImpl implements ResourceService {\n" +
             "    {{implMethodLoop}}\n" +
             "}\n";
-    private String interfaceMethodLoop = "void save{{Class}}({{Class}} {{class}});\n" +
+    private static String interfaceMethodLoop = "void save{{Class}}({{Class}} {{class}});\n" +
             "    {{Class}} find{{Class}}ById(int Id);\n" +
             "    void delete{{Class}}({{Class}} {{class}});\n" +
             "    Collection<{{Class}}> findAll{{Class}}s();";
-    private String resourceService = "package io.swagger.service;\n" +
+    private static String resourceService = "package io.swagger.service;\n" +
             "\n" +
             "import io.swagger.model.{{Class}};\n" +
             "\n" +
