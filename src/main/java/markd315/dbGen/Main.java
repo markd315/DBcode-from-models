@@ -41,15 +41,17 @@ public class Main {
             serviceInterface = serviceInterface.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
 
         }
+
+        //Destruct the loop labels in the service classes once all model code blocks are loaded.
         implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}\n\n\n", "");
         implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}\n", "");
         implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}\n", "");
         implClass = implClass.replaceAll(", \\{\\{constructorParamLoop\\}\\}\n", "");
+        serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n\n", "");
 
-        serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n", "");
-        //Destruct the loop labels in the service classes once all model code blocks are loaded.
-        System.out.println(implClass);
         //Write a single Service Interface and Service Impl with parts from every model class.
+        fileWrite(implClass, "src/main/java/io/swagger/service/ResourceServiceImpl.java");
+        fileWrite(serviceInterface, "src/main/java/io/swagger/service/ResourceService.java");
     }
 
     private static void fileWrite(String contents, String path){
