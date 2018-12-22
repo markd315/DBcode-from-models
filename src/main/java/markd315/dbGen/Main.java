@@ -29,18 +29,18 @@ public class Main {
             fileWrite(fileContents, "src/main/java/io/swagger/repository/"+classname+"Repository.java");
 
             //Inject the service code blocks without destroying the loop label
-            implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}", MongoConst.getImplMethodLoop() + "\\{\\{implMethodLoop\\}\\}");
+            implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}", MongoConst.getImplMethodLoop() + "\\{\\{implMethodLoop\\}\\}\n");
             implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{modelImportLoop\\}\\}");
-            serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}", MongoConst.getInterfaceMethodLoop() + "\\{\\{interfaceMethodLoop\\}\\}");
+            serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}", MongoConst.getInterfaceMethodLoop() + "\\{\\{interfaceMethodLoop\\}\\}\n");
 
             //Replace class names for these two files as well.
             implClass = implClass.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
             serviceInterface = serviceInterface.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
 
         }
-        implClass.replaceAll("\\{\\{implMethodLoop\\}\\}\n", "");
-        implClass.replaceAll("\\{\\{modelImportLoop\\}\\}\n", "");
-        serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n", "");
+        implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}\n", "");
+        implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}\n", "");
+        serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n", "");
         //Destruct the loop labels in the service classes once all model code blocks are loaded.
         System.out.println(implClass + "\n\n");
         System.out.println(serviceInterface);

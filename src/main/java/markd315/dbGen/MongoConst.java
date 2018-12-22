@@ -47,13 +47,13 @@ public class MongoConst {
             "\n" +
             "    @Autowired\n" +
             "    public ResourceServiceImpl(\n" +
-            "                {{Class}}Repository {{class}}Repository) {\n" +
+            "        {{Class}}Repository {{class}}Repository) {\n" +
             "        this.{{class}}Repository = {{class}}Repository;\n" +
             "    }\n" +
             "\n" +
             "    @Override\n" +
             "    public {{Class}} find{{Class}}ById(int id) throws DataAccessException {\n" +
-            "            {{Class}} {{class}}= {{class}}Repository.findById(id);\n" +
+            "        {{Class}} {{class}}= {{class}}Repository.findById(id);\n" +
             "        return {{class}};\n" +
             "    }\n" +
             "\n" +
@@ -64,12 +64,12 @@ public class MongoConst {
             "\n" +
             "    @Override\n" +
             "    public void save{{Class}}({{Class}} {{class}}) throws DataAccessException {\n" +
-            "                                {{class}}Repository.save({{class}});\n" +
+            "        {{class}}Repository.save({{class}});\n" +
             "    }\n" +
             "\n" +
             "    @Override\n" +
             "    public void delete{{Class}}({{Class}} {{class}}) throws DataAccessException {\n" +
-            "                                    {{class}}Repository.delete({{class}});\n" +
+            "        {{class}}Repository.delete({{class}});\n" +
             "    }";
     private static String resourceServiceImpl = "package io.swagger.service;\n" +
             "\n" +
