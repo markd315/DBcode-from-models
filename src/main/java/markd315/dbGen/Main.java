@@ -35,6 +35,7 @@ public class Main {
             implClass = implClass.replaceAll("\\{\\{constructorParamLoop\\}\\}", MongoConst.getConstructorParamLoop()+ "\\{\\{constructorParamLoop\\}\\}");
             implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}", MongoConst.getConstructorFieldLoop() + "\\{\\{constructorFieldLoop\\}\\}");
             serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}", MongoConst.getInterfaceMethodLoop() + "\\{\\{interfaceMethodLoop\\}\\}\n");
+            serviceInterface = serviceInterface.replaceAll("\\{\\{modelImportLoop\\}\\}", MongoConst.getModelOnlyImportLoop() + "\\{\\{modelImportLoop\\}\\}");
 
             //Replace class names for these two files as well.
             implClass = implClass.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
@@ -48,7 +49,7 @@ public class Main {
         implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}\n", "");
         implClass = implClass.replaceAll(", \\{\\{constructorParamLoop\\}\\}\n", "");
         serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n\n", "");
-
+        serviceInterface = serviceInterface.replaceAll("\\{\\{modelImportLoop\\}\\}\n\n", "");
         //Write a single Service Interface and Service Impl with parts from every model class.
         fileWrite(implClass, "src/main/java/io/swagger/service/ResourceServiceImpl.java");
         fileWrite(serviceInterface, "src/main/java/io/swagger/service/ResourceService.java");

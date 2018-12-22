@@ -33,6 +33,10 @@ public class MongoConst {
         return constructorFieldLoop;
     }
 
+    public static String getModelOnlyImportLoop() {
+        return modelOnlyImportLoop;
+    }
+
     private static String constructorParamLoop = "{{Class}}Repository {{class}}Repository, ";
 
     private static String constructorFieldLoop = "        this.{{class}}Repository = {{class}}Repository;\n";
@@ -99,13 +103,14 @@ public class MongoConst {
 
     private static String modelImportLoop = "import io.swagger.model.{{Class}};\n" +
             "import io.swagger.repository.{{Class}}Repository;\n";
+    private static String modelOnlyImportLoop = "import io.swagger.model.{{Class}};\n";
     private static String interfaceMethodLoop = "void save{{Class}}({{Class}} {{class}});\n" +
             "    {{Class}} find{{Class}}ById(int Id);\n" +
             "    void delete{{Class}}({{Class}} {{class}});\n" +
             "    Collection<{{Class}}> findAll{{Class}}s();";
     private static String resourceService = "package io.swagger.service;\n" +
             "\n" +
-            "import io.swagger.model.{{Class}};\n" +
+            "{{modelImportLoop}}\n" +
             "\n" +
             "import java.util.Collection;\n" +
             "\n" +
