@@ -32,8 +32,8 @@ public class Main {
             //Inject the service code blocks without destroying the loop label
             implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}", MongoConst.getImplMethodLoop() + "\\{\\{implMethodLoop\\}\\}\n");
             implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{modelImportLoop\\}\\}");
-            implClass = implClass.replaceAll("\\{\\{constructorParamLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{constructorParamLoop\\}\\}");
-            implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{constructorFieldLoop\\}\\}");
+            implClass = implClass.replaceAll("\\{\\{constructorParamLoop\\}\\}", MongoConst.getConstructorParamLoop()+ "\\{\\{constructorParamLoop\\}\\}");
+            implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}", MongoConst.getConstructorFieldLoop() + "\\{\\{constructorFieldLoop\\}\\}");
             serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}", MongoConst.getInterfaceMethodLoop() + "\\{\\{interfaceMethodLoop\\}\\}\n");
 
             //Replace class names for these two files as well.
@@ -41,8 +41,11 @@ public class Main {
             serviceInterface = serviceInterface.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
 
         }
-        implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}\n", "");
+        implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}\n\n\n", "");
         implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}\n", "");
+        implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}\n", "");
+        implClass = implClass.replaceAll(", \\{\\{constructorParamLoop\\}\\}\n", "");
+
         serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n", "");
         //Destruct the loop labels in the service classes once all model code blocks are loaded.
         System.out.println(implClass);

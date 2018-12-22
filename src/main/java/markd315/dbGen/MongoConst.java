@@ -76,7 +76,7 @@ public class MongoConst {
             "    @Override\n" +
             "    public void delete{{Class}}({{Class}} {{class}}) throws DataAccessException {\n" +
             "        {{class}}Repository.delete({{class}});\n" +
-            "    }";
+            "    }\n\n";
     private static String resourceServiceImpl = "package io.swagger.service;\n" +
             "\n" +
             "{{modelImportLoop}}\n" +
