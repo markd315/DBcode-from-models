@@ -14,10 +14,12 @@ public class Main {
 
     public static void main(String[] args) {
         //traverse folder: src/main/java/io/swagger/model and read class names into
+        File folder = new File("src/main/java/io/swagger/model");
+        File[] filenames = folder.listFiles();
         Set<String> classNames = new HashSet<>();
-        classNames.add("Pet");
-        classNames.add("User");
-        //TODO load model names for real
+        for(File file : filenames){
+            classNames.add(file.getName().replaceAll(".java", ""));
+        }
 
         //TODO something similar with the pom.xml
         String implClass = MongoConst.getResourceServiceImpl();
