@@ -18,7 +18,11 @@ public class Main {
         File[] filenames = folder.listFiles();
         Set<String> classNames = new HashSet<>();
         for(File file : filenames){
-            classNames.add(file.getName().replaceAll(".java", ""));
+            String fn = file.getName().replaceAll(".java", "");
+            if(!fn.toLowerCase().contains("dto") && !fn.toLowerCase().contains("response")){
+                classNames.add(fn);
+            }
+
         }
         mongoScaffold(classNames);
     }

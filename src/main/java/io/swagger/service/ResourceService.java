@@ -4,7 +4,6 @@ import io.swagger.model.Order;
 import io.swagger.model.Category;
 import io.swagger.model.User;
 import io.swagger.model.Tag;
-import io.swagger.model.ModelApiResponse;
 import io.swagger.model.Pet;
 import java.util.Collection;
 
@@ -22,14 +21,10 @@ public interface ResourceService {
     Collection<User> findAllUsers();void saveTag(Tag tag);
     Tag findTagById(int Id);
     void deleteTag(Tag tag);
-    Collection<Tag> findAllTags();void saveModelApiResponse(ModelApiResponse modelapiresponse);
-    ModelApiResponse findModelApiResponseById(int Id);
-    void deleteModelApiResponse(ModelApiResponse modelapiresponse);
-    Collection<ModelApiResponse> findAllModelApiResponses();void savePet(Pet pet);
+    Collection<Tag> findAllTags();void savePet(Pet pet);
     Pet findPetById(int Id);
     void deletePet(Pet pet);
     Collection<Pet> findAllPets();
-
 
 
 

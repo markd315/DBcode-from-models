@@ -8,8 +8,6 @@ import io.swagger.model.User;
 import io.swagger.repository.UserRepository;
 import io.swagger.model.Tag;
 import io.swagger.repository.TagRepository;
-import io.swagger.model.ModelApiResponse;
-import io.swagger.repository.ModelApiResponseRepository;
 import io.swagger.model.Pet;
 import io.swagger.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +20,11 @@ import java.util.Collection;
 public class ResourceServiceImpl implements ResourceService {
     @Autowired
     public ResourceServiceImpl(
-      OrderRepository orderRepository, CategoryRepository categoryRepository, UserRepository userRepository, TagRepository tagRepository, ModelApiResponseRepository modelapiresponseRepository, PetRepository petRepository){
+      OrderRepository orderRepository, CategoryRepository categoryRepository, UserRepository userRepository, TagRepository tagRepository, PetRepository petRepository){
             this.orderRepository = orderRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
-        this.modelapiresponseRepository = modelapiresponseRepository;
         this.petRepository = petRepository;
     }
 
@@ -123,29 +120,6 @@ private TagRepository tagRepository;
         tagRepository.delete(tag);
     }
 
-private ModelApiResponseRepository modelapiresponseRepository;
-
-    @Override
-    public ModelApiResponse findModelApiResponseById(int id) throws DataAccessException {
-        ModelApiResponse modelapiresponse= modelapiresponseRepository.findById(id);
-        return modelapiresponse;
-    }
-
-    @Override
-    public Collection<ModelApiResponse> findAllModelApiResponses() throws DataAccessException {
-        return modelapiresponseRepository.findAll();
-    }
-
-    @Override
-    public void saveModelApiResponse(ModelApiResponse modelapiresponse) throws DataAccessException {
-        modelapiresponseRepository.save(modelapiresponse);
-    }
-
-    @Override
-    public void deleteModelApiResponse(ModelApiResponse modelapiresponse) throws DataAccessException {
-        modelapiresponseRepository.delete(modelapiresponse);
-    }
-
 private PetRepository petRepository;
 
     @Override
@@ -168,7 +142,6 @@ private PetRepository petRepository;
     public void deletePet(Pet pet) throws DataAccessException {
         petRepository.delete(pet);
     }
-
 
 
 
