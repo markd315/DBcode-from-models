@@ -20,8 +20,11 @@ public class Main {
         for(File file : filenames){
             classNames.add(file.getName().replaceAll(".java", ""));
         }
+        mongoScaffold(classNames);
+    }
 
-        //TODO something similar with the pom.xml
+
+    private static void mongoScaffold(Set<String> classNames){
         String implClass = MongoConst.getResourceServiceImpl();
         String serviceInterface = MongoConst.getResourceService();
 
@@ -55,6 +58,7 @@ public class Main {
         //Write a single Service Interface and Service Impl with parts from every model class.
         fileWrite(implClass, "src/main/java/io/swagger/service/ResourceServiceImpl.java");
         fileWrite(serviceInterface, "src/main/java/io/swagger/service/ResourceService.java");
+        fileWrite(MongoConst.getPOM(), "pom.xml");
     }
 
     private static void fileWrite(String contents, String path){

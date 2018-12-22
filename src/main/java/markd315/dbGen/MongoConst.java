@@ -119,4 +119,90 @@ public class MongoConst {
             "    {{interfaceMethodLoop}}\n" +
             "\n" +
             "}\n";
+    private static String pom = "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
+            "    <modelVersion>4.0.0</modelVersion>\n" +
+            "    <groupId>io.swagger</groupId>\n" +
+            "    <artifactId>swagger-spring</artifactId>\n" +
+            "    <packaging>jar</packaging>\n" +
+            "    <name>swagger-spring</name>\n" +
+            "    <version>1.0.0</version>\n" +
+            "    <properties>\n" +
+            "        <java.version>1.7</java.version>\n" +
+            "        <maven.compiler.source>${java.version}</maven.compiler.source>\n" +
+            "        <maven.compiler.target>${java.version}</maven.compiler.target>\n" +
+            "        <spring-data-jdbc.version>1.2.1.RELEASE</spring-data-jdbc.version>\n" +
+            "        <springfox-version>2.7.0</springfox-version>\n" +
+            "    </properties>\n" +
+            "    <parent>\n" +
+            "        <groupId>org.springframework.boot</groupId>\n" +
+            "        <artifactId>spring-boot-starter-parent</artifactId>\n" +
+            "        <version>1.5.9.RELEASE</version>\n" +
+            "    </parent>\n" +
+            "    <build>\n" +
+            "        <sourceDirectory>src/main/java</sourceDirectory>\n" +
+            "        <plugins>\n" +
+            "            <plugin>\n" +
+            "                <groupId>org.springframework.boot</groupId>\n" +
+            "                <artifactId>spring-boot-maven-plugin</artifactId>\n" +
+            "                <executions>\n" +
+            "                    <execution>\n" +
+            "                        <goals>\n" +
+            "                            <goal>repackage</goal>\n" +
+            "                        </goals>\n" +
+            "                    </execution>\n" +
+            "                </executions>\n" +
+            "            </plugin>\n" +
+            "        </plugins>\n" +
+            "    </build>\n" +
+            "    <dependencies>\n" +
+            "        <dependency>\n" +
+            "            <groupId>org.springframework.boot</groupId>\n" +
+            "            <artifactId>spring-boot-starter-web</artifactId>\n" +
+            "        </dependency>\n" +
+            "        <dependency>\n" +
+            "            <groupId>org.springframework.boot</groupId>\n" +
+            "            <artifactId>spring-boot-starter-tomcat</artifactId>\n" +
+            "        </dependency>\n" +
+            "        <dependency>\n" +
+            "            <groupId>org.springframework.boot</groupId>\n" +
+            "            <artifactId>spring-boot-starter-data-mongodb</artifactId>\n" +
+            "        </dependency>\n" +
+            "        <!--SpringFox dependencies -->\n" +
+            "        <dependency>\n" +
+            "            <groupId>io.springfox</groupId>\n" +
+            "            <artifactId>springfox-swagger2</artifactId>\n" +
+            "            <version>${springfox-version}</version>\n" +
+            "        </dependency>\n" +
+            "        <dependency>\n" +
+            "            <groupId>io.springfox</groupId>\n" +
+            "            <artifactId>springfox-swagger-ui</artifactId>\n" +
+            "            <version>${springfox-version}</version>\n" +
+            "        </dependency>\n" +
+            "        <dependency>\n" +
+            "            <groupId>org.springframework.data</groupId>\n" +
+            "            <artifactId>spring-data-jdbc-core</artifactId>\n" +
+            "            <version>${spring-data-jdbc.version}</version>\n" +
+            "            <exclusions>\n" +
+            "                <exclusion>\n" +
+            "                    <groupId>org.springframework</groupId>\n" +
+            "                    <artifactId>*</artifactId>\n" +
+            "                </exclusion>\n" +
+            "            </exclusions>\n" +
+            "        </dependency>\n" +
+            "        <dependency>\n" +
+            "            <groupId>com.github.joschi.jackson</groupId>\n" +
+            "            <artifactId>jackson-datatype-threetenbp</artifactId>\n" +
+            "            <version>2.6.4</version>\n" +
+            "        </dependency>\n" +
+            "    <!-- Bean Validation API support -->\n" +
+            "        <dependency>\n" +
+            "            <groupId>javax.validation</groupId>\n" +
+            "            <artifactId>validation-api</artifactId>\n" +
+            "        </dependency>\n" +
+            "    </dependencies>\n" +
+            "</project>\n";
+
+    public static String getPOM() {
+        return pom;
+    }
 }
