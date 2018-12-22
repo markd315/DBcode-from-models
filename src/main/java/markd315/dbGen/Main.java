@@ -16,6 +16,7 @@ public class Main {
         //traverse folder: src/main/java/io/swagger/model and read class names into
         Set<String> classNames = new HashSet<>();
         classNames.add("Pet");
+        classNames.add("User");
         //TODO load model names for real
 
         //TODO something similar with the pom.xml
@@ -31,6 +32,8 @@ public class Main {
             //Inject the service code blocks without destroying the loop label
             implClass = implClass.replaceAll("\\{\\{implMethodLoop\\}\\}", MongoConst.getImplMethodLoop() + "\\{\\{implMethodLoop\\}\\}\n");
             implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{modelImportLoop\\}\\}");
+            implClass = implClass.replaceAll("\\{\\{constructorParamLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{constructorParamLoop\\}\\}");
+            implClass = implClass.replaceAll("\\{\\{constructorFieldLoop\\}\\}", MongoConst.getModelImportLoop() + "\\{\\{constructorFieldLoop\\}\\}");
             serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}", MongoConst.getInterfaceMethodLoop() + "\\{\\{interfaceMethodLoop\\}\\}\n");
 
             //Replace class names for these two files as well.
@@ -42,8 +45,7 @@ public class Main {
         implClass = implClass.replaceAll("\\{\\{modelImportLoop\\}\\}\n", "");
         serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n", "");
         //Destruct the loop labels in the service classes once all model code blocks are loaded.
-        System.out.println(implClass + "\n\n");
-        System.out.println(serviceInterface);
+        System.out.println(implClass);
         //Write a single Service Interface and Service Impl with parts from every model class.
     }
 

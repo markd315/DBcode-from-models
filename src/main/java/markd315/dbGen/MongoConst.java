@@ -25,6 +25,18 @@ public class MongoConst {
         return resourceService;
     }
 
+    public static String getConstructorParamLoop() {
+        return constructorParamLoop;
+    }
+
+    public static String getConstructorFieldLoop() {
+        return constructorFieldLoop;
+    }
+
+    private static String constructorParamLoop = "{{Class}}Repository {{class}}Repository, ";
+
+    private static String constructorFieldLoop = "        this.{{class}}Repository = {{class}}Repository;\n";
+
     private static String classRepository = "package io.swagger.repository;\n" +
             "\n" +
             "import io.swagger.model.{{Class}};\n" +
@@ -44,12 +56,6 @@ public class MongoConst {
             "}\n";
 
     private static String implMethodLoop = "private {{Class}}Repository {{class}}Repository;\n" +
-            "\n" +
-            "    @Autowired\n" +
-            "    public ResourceServiceImpl(\n" +
-            "        {{Class}}Repository {{class}}Repository) {\n" +
-            "        this.{{class}}Repository = {{class}}Repository;\n" +
-            "    }\n" +
             "\n" +
             "    @Override\n" +
             "    public {{Class}} find{{Class}}ById(int id) throws DataAccessException {\n" +
@@ -82,6 +88,12 @@ public class MongoConst {
             "\n" +
             "@Service\n" +
             "public class ResourceServiceImpl implements ResourceService {\n" +
+            "    @Autowired\n" +
+            "    public ResourceServiceImpl(\n" +
+            "      {{constructorParamLoop}}\n" +
+            "){\n"+
+            "    {{constructorFieldLoop}}\n"+
+            "    }\n\n" +
             "    {{implMethodLoop}}\n" +
             "}\n";
 
