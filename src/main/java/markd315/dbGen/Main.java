@@ -6,12 +6,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.github.difflib.DiffUtils;
+import com.github.difflib.algorithm.DiffException;
+import com.github.difflib.patch.Patch;
 
 public class Main {
 
@@ -21,7 +25,7 @@ public class Main {
     @Parameter(names = {"-db", "-dbms"}, description = "Database layer to use")
     private String dbms = "mongo";
 
-    public static void main(String[] argv) {
+    public static void main(String[] argv) throws DiffException {
         //Parse command line arguments
         Main args = new Main();
         JCommander.newBuilder()
@@ -57,20 +61,31 @@ public class Main {
                 classNames.add(model);
             }
         }
+
+        //TODO CRUDL limit option with -o / -ops arg
+        //filter output
+
+        ArrayList<String> files;
+        ArrayList<String> targetFiles = new ArrayList<>();
+        targetFiles.add(readFileSingleString("src/main/java/io/swagger/service/ResourceServiceImpl.java"));
+        targetFiles.add(readFileSingleString("src/main/java/io/swagger/service/ResourceService.java"));
+        targetFiles.add(readFileSingleString("pom.xml"));
+
         switch(args.dbms.toLowerCase()){
-            case "mongo":
-                mongoScaffold(classNames);
-                break;
             case "sql":
                 //TODO not implemented
                 break;
 
-                default: mongoScaffold(classNames);
+            default: //case: mongo
+                    files = mongoScaffold(classNames);
+                    //TODO patchfile option with -diff or -d arg
+                    //Patch<String> patch = DiffUtils.diff(files, targetFiles);
+                    outputWrite(files.get(0), files.get(1), files.get(2));
                 break;
         }
     }
 
-    private static void mongoScaffold(Set<String> classNames){
+    private static ArrayList<String> mongoScaffold(Set<String> classNames){
         String implClass = MongoConst.getResourceServiceImpl();
         String serviceInterface = MongoConst.getResourceService();
 
@@ -91,7 +106,6 @@ public class Main {
             //Replace class names for these two files as well.
             implClass = implClass.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
             serviceInterface = serviceInterface.replaceAll("\\{\\{Class\\}\\}", classname).replaceAll("\\{\\{class\\}\\}",classname.toLowerCase());
-
         }
 
         //Destruct the loop labels in the service classes once all model code blocks are loaded.
@@ -102,9 +116,17 @@ public class Main {
         serviceInterface = serviceInterface.replaceAll("\\{\\{interfaceMethodLoop\\}\\}\n\n", "");
         serviceInterface = serviceInterface.replaceAll("\\{\\{modelImportLoop\\}\\}\n\n", "");
         //Write a single Service Interface and Service Impl with parts from every model class.
+        ArrayList<String> ret = new ArrayList<String>();
+        ret.add(implClass);
+        ret.add(serviceInterface);
+        ret.add(MongoConst.getPOM());
+        return ret;
+    }
+
+    private static void outputWrite(String implClass, String serviceInterface, String pom) {
         fileWrite(implClass, "src/main/java/io/swagger/service/ResourceServiceImpl.java");
         fileWrite(serviceInterface, "src/main/java/io/swagger/service/ResourceService.java");
-        fileWrite(MongoConst.getPOM(), "pom.xml");
+        fileWrite(pom, "pom.xml");
     }
 
     private static void fileWrite(String contents, String path){
@@ -124,8 +146,7 @@ public class Main {
             fileContents = sc.useDelimiter("\\Z").next();
             sc.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return "err";
+            return "";
         }
         return fileContents;
     }

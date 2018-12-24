@@ -217,6 +217,11 @@ public class MongoConst {
             "            <version>1.72</version>\n" +
             "        </dependency>\n"+
             "        <dependency>\n" +
+            "            <groupId>io.github.java-diff-utils</groupId>\n" +
+            "            <artifactId>java-diff-utils</artifactId>\n" +
+            "            <version>4.0</version>\n" +
+            "        </dependency>\n"+
+            "        <dependency>\n" +
             "            <groupId>org.springframework.data</groupId>\n" +
             "            <artifactId>spring-data-jdbc-core</artifactId>\n" +
             "            <version>${spring-data-jdbc.version}</version>\n" +
