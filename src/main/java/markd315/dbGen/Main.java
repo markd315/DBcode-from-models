@@ -10,9 +10,24 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+
 public class Main {
 
-    public static void main(String[] args) {
+    @Parameter(names = {"-m", "-models"}, description = "Comma-separated list of models to generate")
+    private String models = null;
+
+    @Parameter(names = {"-db", "-dbms"}, description = "Database layer to use")
+    private String dbms = "mongo";
+
+    public static void main(String[] argv) {
+        //Parse command line arguments
+        Main args = new Main();
+        JCommander.newBuilder()
+                .addObject(args)
+                .build()
+                .parse(argv);
 
         //Create folders if not exists
         try {
@@ -22,18 +37,37 @@ public class Main {
             e.printStackTrace();
         }
 
-        //traverse folder: src/main/java/io/swagger/model and read class names into
-        File folder = new File("src/main/java/io/swagger/model");
-        File[] filenames = folder.listFiles();
         Set<String> classNames = new HashSet<>();
-        for(File file : filenames){
-            String fn = file.getName().replaceAll(".java", "");
-            if(!fn.toLowerCase().contains("dto") && !fn.toLowerCase().contains("response")){
-                classNames.add(fn);
-            }
+        if(args.models == null){ //No models specified
+            //traverse folder: src/main/java/io/swagger/model and read class names into
+            File folder = new File("src/main/java/io/swagger/model");
+            File[] filenames = folder.listFiles();
+            for(File file : filenames){
+                String fn = file.getName().replaceAll(".java", "");
+                if(!fn.toLowerCase().contains("dto") && !fn.toLowerCase().contains("response")){
+                    classNames.add(fn);
+                }
 
+            }
         }
-        mongoScaffold(classNames);
+        else{ //Parse the comma separated list
+            String[] modelList = args.models.split(",");
+            for(String model : modelList){
+                model = model.replaceAll(",", "").replaceAll("\\{","").replaceAll("\\}","").trim();
+                classNames.add(model);
+            }
+        }
+        switch(args.dbms.toLowerCase()){
+            case "mongo":
+                mongoScaffold(classNames);
+                break;
+            case "sql":
+                //TODO not implemented
+                break;
+
+                default: mongoScaffold(classNames);
+                break;
+        }
     }
 
     private static void mongoScaffold(Set<String> classNames){

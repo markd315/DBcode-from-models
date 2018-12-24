@@ -212,6 +212,11 @@ public class MongoConst {
             "            <version>${springfox-version}</version>\n" +
             "        </dependency>\n" +
             "        <dependency>\n" +
+            "            <groupId>com.beust</groupId>\n" +
+            "            <artifactId>jcommander</artifactId>\n" +
+            "            <version>1.72</version>\n" +
+            "        </dependency>\n"+
+            "        <dependency>\n" +
             "            <groupId>org.springframework.data</groupId>\n" +
             "            <artifactId>spring-data-jdbc-core</artifactId>\n" +
             "            <version>${spring-data-jdbc.version}</version>\n" +
